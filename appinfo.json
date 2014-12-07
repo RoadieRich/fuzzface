@@ -1,0 +1,19 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "RoadieRich",
+    "longName": "Fuzzy Time",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "shortName": "Fuzzy",
+    "uuid": "79d39a34-5592-4086-92dd-804ff690aa65",
+    "versionCode": 1,
+    "versionLabel": "0.1",
+    "watchapp": {
+        "watchface": true
+    }
+}
