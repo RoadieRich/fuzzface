@@ -4,15 +4,15 @@
         ""
     ],
     "companyName": "RoadieRich",
-    "longName": "Fuzzy Time",
+    "longName": "Fuzzy Text",
     "projectType": "native",
     "resources": {
         "media": []
     },
-    "shortName": "Fuzzy",
+    "shortName": "Fuzzy Text",
     "uuid": "79d39a34-5592-4086-92dd-804ff690aa65",
     "versionCode": 1,
-    "versionLabel": "0.1",
+    "versionLabel": "1.1",
     "watchapp": {
         "watchface": true
     }
