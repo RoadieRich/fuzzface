@@ -7,7 +7,13 @@
     "longName": "Fuzzy Text",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+            {
+                "file": "images/fuzzytime.png",
+                "name": "IMAGE_PREVIEW",
+                "type": "png"
+            }
+        ]
     },
     "shortName": "Fuzzy Text",
     "uuid": "79d39a34-5592-4086-92dd-804ff690aa65",
