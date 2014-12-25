@@ -1,20 +1,23 @@
 #include <pebble.h>
-#include <math.h>
+    
 #define MAX_TEXT_LENGTH sizeof("twenty\nfive\npast\ntwelve")
-#define UPDATE_TIME_NOW() time_t _t = time(NULL);\
-    update_time(localtime(&_t))
-typedef struct tm time_s;
+
+#define UPDATE_TIME_NOW() {time_t __t = time(NULL); \
+    update_time(localtime(&__t));}
+
+
+typedef struct tm tm;
 
     
-static Window *s_main_window;
-static TextLayer *s_time_layer;
+static Window* s_main_window;
+static TextLayer* s_time_layer;
 static bool shaken = false;
 
 
 // Create a long-lived buffer
 static char buffer[MAX_TEXT_LENGTH];
 
-static const char units[][MAX_TEXT_LENGTH] = {
+static const char* const units[] = {
     "o'clock",
     "one",
     "two",
@@ -37,7 +40,7 @@ static const char units[][MAX_TEXT_LENGTH] = {
     "ninteen"       
 };
 
-static const char tens[][MAX_TEXT_LENGTH] = {
+static const char* const tens[] = {
     "",
     "",
     "twenty",
@@ -46,8 +49,23 @@ static const char tens[][MAX_TEXT_LENGTH] = {
     "fifty",
 };
 
+static const char* const fuzzy_mins[] = {
+    "\n\n%s\no'clock",
+    "\nfive\npast\n%s",
+    "\nten\npast\n%s",
+    "\nquarter\npast\n%s",
+    "\ntwenty\npast\n%s",
+    "twenty\nfive\npast\n%s",
+    "\nhalf\npast\n%s",
+    "twenty\nfive\nto\n%s",
+    "\ntwenty\nto\n%s",
+    "\nquarter\nto\n%s",
+    "\nten\nto\n%s",
+    "\nfive\nto\n%s",
+    "\n\n%s\no'clock"
+};
 
-static char* time_to_exact_string(const time_s* time)
+static const char* time_to_exact_string(const tm* const time)
 {
     int mins = time->tm_min;
     int mins_units = mins % 10;
@@ -76,28 +94,12 @@ static char* time_to_exact_string(const time_s* time)
     
     time_parts[idx] = units[hour];
     
-    snprintf(buffer, MAX_TEXT_LENGTH, "\n%s\n%s\n%s", time_parts[2], time_parts[1],time_parts[0]);
+    snprintf(buffer, MAX_TEXT_LENGTH, "\n%s\n%s\n%s", time_parts[2], time_parts[1], time_parts[0]);
     
     return buffer;
 }
 
-static const char fuzzy_mins[][MAX_TEXT_LENGTH] = {
-    "\n\n%s\no'clock",
-    "\nfive\npast\n%s",
-    "\nten\npast\n%s",
-    "\nquarter\npast\n%s",
-    "\ntwenty\npast\n%s",
-    "twenty\nfive\npast\n%s",
-    "\nhalf\npast\n%s",
-    "twenty\nfive\nto\n%s",
-    "\ntwenty\nto\n%s",
-    "\nquarter\nto\n%s",
-    "\nten\nto\n%s",
-    "\nfive\nto\n%s",
-    "\n\n%s\no'clock"
-};
-
-static char* time_to_fuzzy_string(const time_s* time)
+static const char* time_to_fuzzy_string(const tm* const time)
 {
     int mins = time->tm_min;
     int hour = time->tm_hour;
@@ -122,7 +124,7 @@ static char* time_to_fuzzy_string(const time_s* time)
 }
 
 
-static void update_time(const time_s *tick_time) 
+static void update_time(const tm* const tick_time) 
 {
     
     if (!shaken)
@@ -161,14 +163,14 @@ static void main_window_unload(Window *window)
     text_layer_destroy(s_time_layer);
 }
 
-static void tick_handler(time_s *tick_time, TimeUnits units_changed)
+static void tick_handler(tm *tick_time, TimeUnits units_changed)
 {
     // if not showing exact time, reduce battery usage by only updating screen when required
     if (shaken || tick_time->tm_min % 5 == 3) 
         update_time(tick_time);
 }
 
-static void unshake(void * data)
+static void unshake(void *data)
 {
     shaken = false;
     UPDATE_TIME_NOW();
