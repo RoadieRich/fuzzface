@@ -12,7 +12,7 @@
     "shortName": "Fuzzy Time",
     "uuid": "79d39a34-5592-4086-92dd-804ff690aa65",
     "versionCode": 1,
-    "versionLabel": "1.2",
+    "versionLabel": "1.5",
     "watchapp": {
         "watchface": true
     }
