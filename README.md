@@ -7,4 +7,4 @@ Normally, it shows the time to the nearest whole five minutes - does anyone real
 
 You can shake or tap the watch to show the exact time (to the nearest minute, if you're worried about seconds look elsewhere), If, for some strange reason, you need to be that accurate.  
 
-You can download the binary from the [Pebble app store](https://apps.getpebble.com/applications/54888ca1f3bdd511e40000a8).
+You can download the binary from the [Rebble app store](https://apps.rebble.io/applications/54888ca1f3bdd511e40000a8).
